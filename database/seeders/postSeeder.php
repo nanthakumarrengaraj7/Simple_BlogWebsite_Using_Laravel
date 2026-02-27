@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class postSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // 
         $titles = [
             "Mastering Laravel Basics",
             "Understanding MVC Architecture",
@@ -62,12 +63,10 @@ class postSeeder extends Seeder
         ];
 
         foreach ($titles as $index => $title) {
-            DB::table('posts')->insert([
+            Post::create([
                 'title' => $title,
                 'content' => $contents[$index],
-                'img_url' => $img_urls[$index],
-                'created_at' => now(),
-                'updated_at' => now()
+                'img_url' => $img_urls[$index]
             ]);
         }
     }

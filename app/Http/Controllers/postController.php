@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class postController extends Controller
@@ -52,23 +53,32 @@ class postController extends Controller
     public function index()
     {
         $title = "NKR Code";
-        $posts = $this->getPosts();
+        // $posts = $this->getPosts();
+        $posts = Post::all();
+
         return view('posts.index', compact('title', 'posts'));
     }
 
-    private function getPosts()
-    {
-        return json_decode(json_encode([ //array to object ah convert panna like decode panni encode pannanum
-            ['id' => 1, 'title' => 'post 1', 'content' => 'content of post 1'],
-            ['id' => 2, 'title' => 'post 2', 'content' => 'content of post 2'],
-            ['id' => 3, 'title' => 'post 3', 'content' => 'content of post 3']
-        ]));
-    }
+    // private function getPosts()
+    // {
+    //     return json_decode(json_encode([ //array to object ah convert panna like decode panni encode pannanum
+    //         ['id' => 12, 'title' => 'post 1', 'content' => 'content of post 1'],
+    //         ['id' => 13, 'title' => 'post 2', 'content' => 'content of post 2'],
+    //         ['id' => 14, 'title' => 'post 3', 'content' => 'content of post 3']
+    //     ]));
+    // }
 
     public function detail($id)
     {
-        $posts = $this->getPosts();
-        $post = collect($posts)->firstWhere('id', $id);
-        return view('posts.detail', compact('post'));
+        // $posts = $this->getPosts();
+        try {
+            $post = Post::findOrFail($id);
+            // if (!$post)
+            //     abort(404);
+            return view('posts.detail', compact('post'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
+            //throw$ th;
+            return response()->view('errors.404', [], 404);
+        }
     }
 }

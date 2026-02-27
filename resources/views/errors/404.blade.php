@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-fluid bg-secondary">
 
-    <div class="d-flex flex-column   justify-content-center align-items-center vh-100">
+    <div class="d-flex flex-column justify-content-center align-items-center vh-100">
         <div class="text-light">
             <h1 class="fw-bold text-center text-dark">404</h1>
             <h1>Sorry Page Does not Exist!</h1>
